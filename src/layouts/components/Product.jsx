@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MessageSquareHeart, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
-import InterestModal from "./InterestModal"; // import the modal
+import InterestModal from "./InterestModal"; // Correct import
 
 const Product = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
