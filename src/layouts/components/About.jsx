@@ -1,4 +1,5 @@
 import { Users, Target, Zap, Heart, Mail, Phone, MapPin } from 'lucide-react';
+import DecorativeBadge from './DecorativeBadge';
 
 export default function About() {
   return (
@@ -17,6 +18,8 @@ export default function About() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 mb-16">
+                      <DecorativeBadge/>
+
             <div className="space-y-6">
               <h3 className="text-3xl font-bold text-gray-900">Our Story</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -31,19 +34,6 @@ export default function About() {
               </p>
             </div>
 
-            <div className="space-y-6">
-              <h3 className="text-3xl font-bold text-gray-900">Our Approach</h3>
-              <p className="text-gray-600 leading-relaxed">
-                We believe in the power of collaboration and innovation. By combining cutting-edge 
-                technology with human-centered design, we create solutions that are both powerful 
-                and intuitive.
-              </p>
-              <p className="text-gray-600 leading-relaxed">
-                Our team brings together diverse perspectives and expertise, ensuring that every 
-                project benefits from a holistic approach. We're not just service providers – 
-                we're partners in your success.
-              </p>
-            </div>
           </div>
 
  

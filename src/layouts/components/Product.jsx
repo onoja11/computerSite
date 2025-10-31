@@ -1,74 +1,75 @@
-import React from 'react'
-import { ShoppingCart, Eye } from "lucide-react"
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { MessageSquareHeart, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
+import InterestModal from "./InterestModal"; // import the modal
 
 const Product = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const product = {
     id: 1,
-    name: "Kove X15 Ultra Laptop",
-    description: "Powerful Intel i7, 16GB RAM, 1TB SSD – built for performance and durability.",
+    name: "Xlock Pro 15 Laptop",
+    description:
+      "Experience ultimate performance with the Xlock Pro 15 featuring Intel i9, 32GB RAM, and 1TB SSD.",
     pic: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
-    price: 850000,
-    stock: 5,
-  }
-
-  const isOutOfStock = product.stock < 1
+    price: 950000,
+  };
 
   return (
-    <div className={`bg-white shadow-lg rounded-2xl overflow-hidden group relative hover:shadow-2xl transition-all duration-300 ${isOutOfStock ? 'opacity-75' : ''}`}>
-      {/* Image */}
-      <div className="relative h-64">
-        <img 
-          src={product.pic} 
-          alt={product.name} 
-          className={`w-full h-full object-cover transition-transform duration-300 ${isOutOfStock ? 'grayscale' : 'group-hover:scale-105'}`} 
-        />
+    <>
+      <div className="bg-white shadow-md rounded-2xl overflow-hidden group relative transition-all duration-300 hover:shadow-2xl">
+        {/* Product Image */}
+        <div className="relative h-64">
+          <img
+            src={product.pic}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
 
-      
-
-        {/* Out of Stock Overlay */}
-        {isOutOfStock && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <p className="text-white text-lg font-bold">OUT OF STOCK</p>
+          {/* Hover Action */}
+          <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+            <Link
+              to={`/product/${product.id}`}
+              className="bg-white text-gray-800 p-3 rounded-full shadow-md hover:shadow-xl transform hover:scale-110 transition-transform"
+            >
+              <Eye className="w-5 h-5" />
+            </Link>
           </div>
-        )}
+        </div>
 
-        {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-          <Link
-            to="#"
-            className="bg-white text-gray-800 p-3 rounded-full shadow-lg transform scale-90 group-hover:scale-105 transition-all duration-300"
-          >
-            <Eye className="w-5 h-5" />
-          </Link>
+        {/* Product Info */}
+        <div className="p-5">
+          <h3 className="font-semibold text-gray-900 text-lg mb-2">
+            {product.name}
+          </h3>
+          <p className="text-gray-500 text-sm mb-4 line-clamp-2">
+            {product.description}
+          </p>
+
+          <div className="flex justify-between items-center">
+            <span className="font-bold text-lg text-gray-800">
+              ₦{product.price.toLocaleString()}
+            </span>
+
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+            >
+              <MessageSquareHeart className="w-4 h-4" />
+              Show Interest
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-5">
-        <h3 className="font-semibold text-gray-800 text-lg mb-2">{product.name}</h3>
-        <p className="text-gray-500 text-sm mb-4">{product.description}</p>
+      {/* Modal Component */}
+      <InterestModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        product={product}
+      />
+    </>
+  );
+};
 
-        <div className="flex justify-between items-center">
-          <span className={`font-bold text-xl ${isOutOfStock ? 'text-gray-500 line-through' : 'text-gray-800'}`}>
-            ₦{product.price.toLocaleString()}
-          </span>
-
-          <button
-            disabled={isOutOfStock}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-all duration-200 ${
-              isOutOfStock 
-                ? 'bg-gray-300 cursor-not-allowed text-gray-500' 
-                : 'bg-gray-800 hover:bg-gray-900 text-white hover:shadow-lg transform hover:scale-105'
-            }`}
-          >
-            <ShoppingCart className="w-4 h-4" />
-            {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default Product
+export default Product;
