@@ -104,12 +104,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="bg-black text-white px-8 py-3 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl"
-      >
-        Open Interest Modal
-      </button>
+      
       
       <InterestModal
         isOpen={isModalOpen}
