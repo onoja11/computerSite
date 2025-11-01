@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MessageSquareHeart, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
-import InterestModal from "./InterestModal"; // Correct import
+import InterestModal from "./InterestModal";
 
 const Product = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,8 +17,7 @@ const Product = () => {
 
   return (
     <>
-      <div className="bg-white shadow-md rounded-2xl overflow-hidden group relative transition-all duration-300 hover:shadow-2xl">
-        {/* Product Image */}
+      <div className="bg-blue-900 shadow-md rounded-2xl overflow-hidden group relative transition-all duration-300 hover:shadow-2xl">
         <div className="relative h-64">
           <img
             src={product.pic}
@@ -26,7 +25,6 @@ const Product = () => {
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
 
-          {/* Hover Action */}
           <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
             <Link
               to={`/product/${product.id}`}
@@ -37,23 +35,22 @@ const Product = () => {
           </div>
         </div>
 
-        {/* Product Info */}
         <div className="p-5">
-          <h3 className="font-semibold text-gray-900 text-lg mb-2">
+          <h3 className="font-semibold text-white text-lg mb-2">
             {product.name}
           </h3>
-          <p className="text-gray-500 text-sm mb-4 line-clamp-2">
+          <p className="text-blue-200 text-sm mb-4 line-clamp-2">
             {product.description}
           </p>
 
           <div className="flex justify-between items-center">
-            <span className="font-bold text-lg text-gray-800">
-              ₦{product.price.toLocaleString()}
+            <span className="font-bold text-lg text-white">
+              {/* ₦{product.price.toLocaleString()} */}
             </span>
 
             <button
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg transform hover:scale-105 transition-all duration-200"
             >
               <MessageSquareHeart className="w-4 h-4" />
               Show Interest
@@ -62,7 +59,6 @@ const Product = () => {
         </div>
       </div>
 
-      {/* Modal Component */}
       <InterestModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
