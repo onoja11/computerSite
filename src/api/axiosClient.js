@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://api_x-lock.test/api",
+  baseURL: "https://x-lock-api.onrender.com/api",
 });
 
 axiosClient.interceptors.request.use((config) => {
