@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
-import userAPI from "../api/UserApi";
-import messageAPI from "../api/messageApi";
-import productAPI from "../api/productApi";
+import userAPI from "../api/userAPI";
+import messageAPI from "../api/messageAPI";
+import productAPI from "../api/productAPI";
 
 const AppContext = createContext();
 
