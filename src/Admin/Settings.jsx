@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import userAPI from "../api/UserApi"; 
+import userAPI from "../api/userApi.js"; 
 // import Swal from "sweetalert2";
 
 const AdminSettings = () => {
