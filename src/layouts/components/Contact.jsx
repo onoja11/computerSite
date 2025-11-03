@@ -77,8 +77,8 @@ export default function ContactSection() {
             </div>
             <h3 className="text-xl font-semibold text-white mb-3">Email Us</h3>
             <p className="text-blue-200 mb-2">Drop us an email anytime</p>
-            <a href="mailto:hello@company.com" className="text-blue-300 font-medium hover:underline">
-              hello@company.com
+            <a href="mailto: Xlockltd21@gmail.com" className="text-blue-300 font-medium hover:underline">
+             Xlockltd21@gmail.com
             </a>
           </div>
 
@@ -88,8 +88,11 @@ export default function ContactSection() {
             </div>
             <h3 className="text-xl font-semibold text-white mb-3">Call Us</h3>
             <p className="text-blue-200 mb-2">Mon-Fri from 9am to 6pm</p>
-            <a href="tel:+15551234567" className="text-blue-300 font-medium hover:underline">
-              +1 (555) 123-4567
+            <a href="tel:+2348033197477" className="text-blue-300 font-medium hover:underline">
+              +234 (0)8033197477
+            </a>
+            <a href="tel:+2348037042808" className="text-blue-300 font-medium hover:underline">
+               +234 (0)8037042808
             </a>
           </div>
 
@@ -99,7 +102,7 @@ export default function ContactSection() {
             </div>
             <h3 className="text-xl font-semibold text-white mb-3">Visit Us</h3>
             <p className="text-blue-200 mb-2">Come say hello at our office</p>
-            <p className="text-blue-300 font-medium">123 Business Street<br/>New York, NY 10001</p>
+            <p className="text-blue-300 font-medium"> suite A12 commerce plaza<br/>garki , area 1 Abuja</p>
           </div>
         </div>
 

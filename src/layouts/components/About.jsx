@@ -22,7 +22,7 @@ export default function About() {
             <div className="space-y-6">
               <h3 className="text-3xl font-bold text-white">Our Story</h3>
               <p className="text-blue-200 leading-relaxed">
-                Founded in 2020, we started with a simple mission: to deliver innovative solutions 
+                Founded in 2006, we started with a simple mission: to deliver innovative solutions 
                 that make a real difference. What began as a small startup has grown into a thriving 
                 company serving clients worldwide.
               </p>
