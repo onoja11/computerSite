@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import userAPI from "../api/userAPI";
+import userAPI from "../api/userApi.js";
 import messageAPI from "../api/messageAPI";
 import productAPI from "../api/productAPI";
 
