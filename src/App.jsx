@@ -28,8 +28,7 @@ function App() {
           <Route path='/admin/products' element={<Products/>}/>
           <Route path='/admin/settings' element={<Settings/>}/>
         </Route>
-        {/* Auth route */}
-        <Route path='/login/7cOD7LQu9ajR4VkP9zU1qtiW26EtAlwhNwWm0ogGt45t8f3IJPFnoIkU2fbA' element={<LoginForm/>}/>
+          <Route path='/login' element={<LoginForm/>}/>
       </Routes>
     </Router>
     </AppProvider>
