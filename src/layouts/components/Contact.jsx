@@ -89,10 +89,11 @@ export default function ContactSection() {
             <h3 className="text-xl font-semibold text-white mb-3">Call Us</h3>
             <p className="text-blue-200 mb-2">Mon-Fri from 9am to 6pm</p>
             <a href="tel:+2348033197477" className="text-blue-300 font-medium hover:underline">
-              +234 (0)8033197477
+              +234(0)8033197477
             </a>
+            <br></br>
             <a href="tel:+2348037042808" className="text-blue-300 font-medium hover:underline">
-               +234 (0)8037042808
+               +234(0)8037042808
             </a>
           </div>
 
