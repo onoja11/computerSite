@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
+import { useAPI } from '../context/AppContext'; 
+import axios from 'axios';
 
 const LoginForm = () => {
+  const { userAPI } = useAPI(); 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -17,10 +23,35 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login data:', formData);
-    alert('Login successful!');
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await userAPI.login({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      
+      const { token, user } = response.data;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      alert('Login successful!');
+      window.location.href = '/admin'; // redirect after login
+    } catch (err) {
+      console.error(err);
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || 'Invalid credentials');
+      } else {
+        setError('An unexpected error occurred');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,8 +70,8 @@ const LoginForm = () => {
 
         {/* Login Card */}
         <div className="bg-blue-900 rounded-2xl shadow-2xl p-8">
-          <div className="space-y-6">
-            {/* Email Field */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-blue-200 mb-2">
                 Email Address
@@ -53,12 +84,13 @@ const LoginForm = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
-                  className="w-full pl-11 pr-4 py-3 bg-blue-950 border border-blue-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-blue-400 transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-blue-950 border border-blue-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-blue-400 transition-all"
+                  required
                 />
               </div>
             </div>
 
-            {/* Password Field */}
+            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-blue-200 mb-2">
                 Password
@@ -71,7 +103,8 @@ const LoginForm = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Enter your password"
-                  className="w-full pl-11 pr-12 py-3 bg-blue-950 border border-blue-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-blue-400 transition-all"
+                  className="w-full pl-11 pr-12 py-3 bg-blue-950 border border-blue-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-blue-400 transition-all"
+                  required
                 />
                 <button
                   type="button"
@@ -83,7 +116,7 @@ const LoginForm = () => {
               </div>
             </div>
 
-            {/* Remember Me & Forgot Password */}
+            {/* Remember me + Forgot password */}
             <div className="flex items-center justify-between">
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input
@@ -100,22 +133,23 @@ const LoginForm = () => {
               </a>
             </div>
 
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-700 text-red-100 text-sm p-2 rounded-md">
+                {error}
+              </div>
+            )}
+
             {/* Submit Button */}
             <button
-              onClick={handleSubmit}
-              className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-900 transition-all flex items-center justify-center gap-2 group shadow-lg"
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all flex items-center justify-center gap-2 group shadow-lg disabled:opacity-60"
             >
-              Sign In
-              <LogIn className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {loading ? 'Signing in...' : 'Sign In'}
+              {!loading && <LogIn className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
             </button>
-          </div>
-
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-blue-800"></div>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

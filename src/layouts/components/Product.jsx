@@ -3,24 +3,18 @@ import { MessageSquareHeart, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import InterestModal from "./InterestModal";
 
-const Product = () => {
+const Product = ({product}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const product = {
-    id: 1,
-    name: "Xlock Pro 15 Laptop",
-    description:
-      "Experience ultimate performance with the Xlock Pro 15 featuring Intel i9, 32GB RAM, and 1TB SSD.",
-    pic: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
-    price: 950000,
-  };
+
+  
 
   return (
     <>
       <div className="bg-blue-900 shadow-md rounded-2xl overflow-hidden group relative transition-all duration-300 hover:shadow-2xl">
         <div className="relative h-64">
           <img
-            src={product.pic}
+            src={product.image_url}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />

@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Product from './Product'
+import { useAPI } from '../../context/AppContext'
 
 const Products = () => {
+  const {productAPI} = useAPI();
+  const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+    productAPI.getAll().then((res) => setProducts(res.data));
+  }, []);
   return (
     <section id="products" className="py-16 bg-blue-950">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
@@ -14,10 +21,11 @@ const Products = () => {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          <Product  />
-          <Product />
-          <Product />
-          <Product />
+          {products.map((item)=>(
+            <Product key={item.id} product={item}  />
+
+          ))}
+
         </div>
       </div>
     </section>
