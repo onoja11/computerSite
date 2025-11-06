@@ -23,6 +23,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const handleLogout = async () => {
     try {
       await userAPI.logout(); 
+      localStorage.setItem('justLoggedOut', 'true');
       // navigate('/login'); 
     } catch (error) {
       console.error('Logout failed:', error);
