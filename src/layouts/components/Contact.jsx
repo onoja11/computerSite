@@ -15,7 +15,6 @@ export default function ContactSection() {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
 
-  const notify = () => toast.success("Message Sent successfully!");
 
   const handleChange = (e) => {
     setFormData({
@@ -40,8 +39,7 @@ export default function ContactSection() {
         message: formData.message
       });
 
-      setFeedback("✅ Message sent successfully!");
-          notify();
+          toast.success("Message Sent successfully!");
       
       
 
@@ -50,7 +48,7 @@ export default function ContactSection() {
       setTimeout(() => setFeedback(""), 3000);
     } catch (error) {
       console.error(error);
-      setFeedback("❌ Failed to send message. Try again.");
+      toast.error("Failed to send message. Try again.");
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Search, Save, Loader2 } from 'lucide-react';
 import { useAPI } from '../context/AppContext';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminProducts = () => {
   const { productAPI } = useAPI();
@@ -22,7 +24,7 @@ const AdminProducts = () => {
       setProducts(res.data || []);
     } catch (error) {
       console.error('Error fetching products:', error);
-      alert('Failed to load products.');
+      toast.error("Failed to load products.");
     } finally {
       setLoading(false);
     }
@@ -44,37 +46,67 @@ const AdminProducts = () => {
       const payload = new FormData();
       payload.append('name', formData.name);
       payload.append('description', formData.description);
-      if (formData.image) payload.append('image', formData.image); // Only append if a new image is selected
+      if (formData.image) payload.append('image', formData.image);
 
       if (editingProduct) {
         await productAPI.update(editingProduct.id, payload, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        alert('Product updated successfully!');
+        toast.success("Product updated successfully!");
       } else {
         await productAPI.create(payload, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        alert('Product added successfully!');
+        toast.success("Product added successfully!");
       }
 
       setIsModalOpen(false);
       fetchProducts();
     } catch (error) {
       console.error('Error saving product:', error);
-      alert('Failed to save product. Please try again.');
+      toast.error("Failed to save product. Please try again.");
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this product?')) return;
+  // ✅ Show Toastify confirmation dialog
+  const showConfirmToast = (id) => {
+    toast.info(
+      <div className="flex flex-col items-start gap-2">
+        <p className="text-white">Are you sure you want to delete this product?</p>
+        <div className="flex gap-2 mt-2">
+          <button
+            onClick={() => handleConfirmDelete(id)}
+            className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition"
+          >
+            Yes, Delete
+          </button>
+          <button
+            onClick={() => toast.dismiss()}
+            className="bg-blue-700 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>,
+      {
+        autoClose: false,
+        closeOnClick: false,
+        position: "top-center",
+        className: "bg-blue-900 text-white rounded-xl shadow-md border border-blue-700",
+      }
+    );
+  };
+
+  // ✅ Confirm delete logic
+  const handleConfirmDelete = async (id) => {
+    toast.dismiss();
     try {
       await productAPI.delete(id);
-      alert('Product deleted successfully!');
+      toast.success("Product deleted successfully!");
       fetchProducts();
     } catch (error) {
-      console.error('Error deleting product:', error);
-      alert('Failed to delete product.');
+      console.error("Error deleting product:", error);
+      toast.error("Failed to delete product. Please try again.");
     }
   };
 
@@ -95,6 +127,9 @@ const AdminProducts = () => {
           Add Product
         </button>
       </div>
+
+      {/* Toastify Container */}
+      <ToastContainer />
 
       {/* Product List */}
       <div className="bg-blue-900 rounded-xl p-6 shadow-lg">
@@ -142,7 +177,7 @@ const AdminProducts = () => {
                     <Edit className="w-5 h-5" />
                   </button>
                   <button
-                    onClick={() => handleDelete(product.id)}
+                    onClick={() => showConfirmToast(product.id)}
                     className="p-2 bg-red-700 text-white rounded-lg hover:bg-red-600 transition-colors"
                   >
                     <Trash2 className="w-5 h-5" />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
 import { useAPI } from '../context/AppContext'; 
 import axios from 'axios';
@@ -40,7 +41,6 @@ const LoginForm = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
 
-      alert('Login successful!');
       window.location.href = '/admin'; // redirect after login
     } catch (err) {
       console.error(err);
