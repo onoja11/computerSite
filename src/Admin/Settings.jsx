@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import userAPI from "../api/userApi.js"; 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
 // import Swal from "sweetalert2";
 
 const AdminSettings = () => {
@@ -53,9 +55,11 @@ const AdminSettings = () => {
       localStorage.setItem("user", JSON.stringify(response.data));
 
       // Swal.fire("Success", "Account updated successfully!", "success");
+      toast.success("Account updated successfully!");
     } catch (error) {
       console.error("Error updating admin:", error);
       // Swal.fire("Error", "Failed to update account.", "error");
+      toast.error("Failed to update account.");
     } finally {
       setLoading(false);
     }
