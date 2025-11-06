@@ -72,7 +72,7 @@ const AdminProducts = () => {
   const showConfirmToast = (id) => {
     toast.info(
       <div className="flex flex-col items-start gap-2">
-        <p className="text-white">Are you sure you want to delete this product?</p>
+        <p className="text-black">Are you sure you want to delete this product?</p>
         <div className="flex gap-2 mt-2">
           <button
             onClick={() => handleConfirmDelete(id)}
