@@ -11,8 +11,12 @@ const Products = () => {
     productAPI.getAll().then((res) => setProducts(res.data));
   }, []);
 
-  const handleReadMore = () => {
-    setVisibleCount(products.length); // Show all products
+  const handleSeeMore = () => {
+    setVisibleCount(products.length); // Show all
+  };
+
+  const handleSeeLess = () => {
+    setVisibleCount(4); // Collapse back to 4
   };
 
   return (
@@ -29,18 +33,22 @@ const Products = () => {
           style, comfort, and reliable performance for every need.
         </p>
 
+        {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
           {products.slice(0, visibleCount).map((item) => (
             <Product key={item.id} product={item} />
           ))}
         </div>
 
-        {visibleCount < products.length && (
+        {/* See More / See Less Buttons */}
+        {products.length > 4 && (
           <button
-            onClick={handleReadMore}
+            onClick={
+              visibleCount < products.length ? handleSeeMore : handleSeeLess
+            }
             className="px-6 py-2 bg-blue-400 hover:bg-blue-300 text-blue-950 font-semibold rounded-full transition duration-300"
           >
-            Read More
+            {visibleCount < products.length ? "See More" : "See Less"}
           </button>
         )}
       </div>
