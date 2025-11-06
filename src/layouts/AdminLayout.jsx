@@ -9,7 +9,7 @@ const AdminLayout = () => {
   useEffect(() => {
     const justLoggedIn = localStorage.getItem('justLoggedIn');
     if (justLoggedIn) {
-      toast.success('Welcome back, Admin! 🎉');
+      toast.success('Welcome back, Admin! ');
       localStorage.removeItem('justLoggedIn');
     }
   }, []);

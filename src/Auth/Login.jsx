@@ -40,6 +40,7 @@ const LoginForm = () => {
 
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('justLoggedIn', 'true'); 
 
       window.location.href = '/admin'; // redirect after login
     } catch (err) {
