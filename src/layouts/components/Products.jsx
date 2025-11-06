@@ -5,10 +5,12 @@ import { useAPI } from '../../context/AppContext'
 const Products = () => {
   const { productAPI } = useAPI();
   const [products, setProducts] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(4); // Show 4 initially
+  const [visibleCount, setVisibleCount] = useState(4); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     productAPI.getAll().then((res) => setProducts(res.data));
+    setLoading(false);
   }, []);
 
   const handleSeeMore = () => {
@@ -34,11 +36,15 @@ const Products = () => {
         </p>
 
         {/* Product Grid */}
+      { loading ? (
+          <p className="text-white">Loading products...</p>
+        ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
           {products.slice(0, visibleCount).map((item) => (
             <Product key={item.id} product={item} />
           ))}
         </div>
+        ) }
 
         {/* See More / See Less Buttons */}
         {products.length > 4 && (
