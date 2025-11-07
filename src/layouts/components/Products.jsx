@@ -9,20 +9,18 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    productAPI.getAll().then((res) => setProducts(res.data));
-    setLoading(false);
+    // Proper loading flow
+    setLoading(true);
+    productAPI.getAll()
+      .then((res) => setProducts(res.data))
+      .finally(() => setLoading(false));
   }, []);
 
-  const handleSeeMore = () => {
-    setVisibleCount(products.length); // Show all
-  };
-
-  const handleSeeLess = () => {
-    setVisibleCount(4); // Collapse back to 4
-  };
+  const handleSeeMore = () => setVisibleCount(products.length);
+  const handleSeeLess = () => setVisibleCount(4);
 
   return (
-    <section id="products" className="py-16 bg-blue-950">
+    <section id="products" className="py-16 bg-blue-950 relative">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
         <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
           Our{" "}
@@ -35,11 +33,11 @@ const Products = () => {
           style, comfort, and reliable performance for every need.
         </p>
 
-        {/* Product Grid */}
+        {/* Product Grid or Loader */}
         {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-            <p className="ml-4 text-white text-lg font-medium animate-pulse">Loading products...</p>
+          <div className="flex flex-col justify-center items-center py-20 min-h-[300px]">
+            <div className="w-12 h-12 border-4 border-blue-300 border-t-transparent rounded-full animate-spin"></div>
+            <p className="mt-4 text-blue-200 text-lg font-medium animate-pulse">Loading products...</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
@@ -49,13 +47,10 @@ const Products = () => {
           </div>
         )}
 
-
         {/* See More / See Less Buttons */}
-        {products.length > 4 && (
+        {!loading && products.length > 4 && (
           <button
-            onClick={
-              visibleCount < products.length ? handleSeeMore : handleSeeLess
-            }
+            onClick={visibleCount < products.length ? handleSeeMore : handleSeeLess}
             className="px-6 py-2 bg-blue-400 hover:bg-blue-300 text-blue-950 font-semibold rounded-full transition duration-300"
           >
             {visibleCount < products.length ? "See More" : "See Less"}
