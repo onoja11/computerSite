@@ -46,6 +46,7 @@ const Products = () => {
             {products.slice(0, visibleCount).map((item) => (
               <Product key={item.id} product={item} />
             ))}
+            <p>active</p>
           </div>
         )}
 
