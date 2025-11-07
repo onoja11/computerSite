@@ -1,29 +1,64 @@
-import React, { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
-import AdminNavbar from '../Admin/NavBar'
-import Sidebar from '../Admin/SideBar'
-import { toast, ToastContainer } from 'react-toastify'
+import React, { useEffect, useState } from 'react'
+import Product from './Product'
+import { useAPI } from '../../context/AppContext'
 
-const AdminLayout = () => {
-  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+const Products = () => {
+  const { productAPI } = useAPI();
+  const [products, setProducts] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(4);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    const justLoggedIn = localStorage.getItem('justLoggedIn');
-    if (justLoggedIn) {
-      toast.success('Welcome back, Admin! ');
-      localStorage.removeItem('justLoggedIn');
-    }
+    // Proper loading flow
+    setLoading(true);
+    productAPI.getAll()
+      .then((res) => setProducts(res.data))
+      .finally(() => setLoading(false));
   }, []);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-950 to-blue-900">
-      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-      <AdminNavbar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-      <ToastContainer/>
-      <main className="lg:ml-20 pt-20 p-6 transition-all duration-300">
-        <Outlet />
-      </main>
-    </div>
-  )
-}
+  const handleSeeMore = () => setVisibleCount(products.length);
+  const handleSeeLess = () => setVisibleCount(4);
 
-export default AdminLayout
+  return (
+    <section id="products" className="py-16 bg-blue-950 relative">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+          Our{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">
+            Products
+          </span>
+        </h2>
+        <p className="text-blue-200 max-w-2xl mx-auto mb-12 text-sm md:text-base">
+          Explore our premium collection of laptops expertly designed to combine
+          style, comfort, and reliable performance for every need.
+        </p>
+
+        {/* Product Grid or Loader */}
+        {loading ? (
+          <div className="flex flex-col justify-center items-center py-20 min-h-[300px]">
+            <div className="w-12 h-12 border-4 border-blue-300 border-t-transparent rounded-full animate-spin"></div>
+            <p className="mt-4 text-blue-200 text-lg font-medium animate-pulse">Loading products...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
+            {products.slice(0, visibleCount).map((item) => (
+              <Product key={item.id} product={item} />
+            ))}
+          </div>
+        )}
+
+        {/* See More / See Less Buttons */}
+        {!loading && products.length > 4 && (
+          <button
+            onClick={visibleCount < products.length ? handleSeeMore : handleSeeLess}
+            className="px-6 py-2 bg-blue-400 hover:bg-blue-300 text-blue-950 font-semibold rounded-full transition duration-300"
+          >
+            {visibleCount < products.length ? "See More" : "See Less"}
+          </button>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default Products;
