@@ -38,7 +38,7 @@ const Products = () => {
         {/* Product Grid */}
         {loading ? (
           <div className="flex justify-center items-center py-20">
-            <div className="w-12 h-12 border-4 border-blue-300 border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
             <p className="ml-4 text-white text-lg font-medium animate-pulse">Loading products...</p>
           </div>
         ) : (
