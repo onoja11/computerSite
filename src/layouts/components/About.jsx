@@ -31,8 +31,7 @@ export default function About() {
                 X-Lock Ltd is a premier provider of high-quality computer equipment and accessories,
                 dedicated to delivering innovative solutions for both personal and professional use.
                 Established in <span className="font-semibold text-white">2005</span>, we specialize
-                in manufacturing and distributing a wide range of products, including desktops,
-                laptops, servers, networking devices, and peripherals.
+                in building a strong networking solution (wired/wireless).
               </p>
 
               {/* Collapsible Section */}
