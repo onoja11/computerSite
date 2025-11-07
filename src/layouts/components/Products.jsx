@@ -39,14 +39,13 @@ const Products = () => {
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <div className="w-12 h-12 border-4 border-blue-300 border-t-transparent rounded-full animate-spin"></div>
-            <p className="ml-4 text-blue-200 text-lg font-medium animate-pulse">Loading products...</p>
+            <p className="ml-4 text-white text-lg font-medium animate-pulse">Loading products...</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
             {products.slice(0, visibleCount).map((item) => (
               <Product key={item.id} product={item} />
             ))}
-            <p>active</p>
           </div>
         )}
 
