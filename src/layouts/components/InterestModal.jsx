@@ -119,7 +119,7 @@ const InterestModal = ({ isOpen, onClose, product }) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-500 text-white font-semibold py-3.5 rounded-xl hover:bg-white active:scale-98 transition-all duration-200 shadow-lg hover:shadow-xl mt-6"
+              className="w-full bg-blue-500 text-white font-semibold py-3.5 rounded-xl hover:bg-blue-300 active:scale-98 transition-all duration-200 shadow-lg hover:shadow-xl mt-6"
             >
               {loading ? "Submitting..." : "Submit Interest"}
             </button>
